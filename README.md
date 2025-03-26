@@ -1,6 +1,3 @@
-Here's a comprehensive README file for your Todo List API project:
-
----
 
 # Todo List API
 
