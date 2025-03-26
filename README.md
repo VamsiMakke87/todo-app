@@ -150,7 +150,8 @@ By default, the server will run on `http://localhost:8800`.
     }
     ```
 
-- **DELETE** `/api/tasks/:taskid`: Delete a todo item.
+- **DELETE** `/api/tasks/:taskls
+id`: Delete a todo item.
   - Request Body:
     ```json
     {
