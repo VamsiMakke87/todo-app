@@ -51,4 +51,34 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
+    if (!todo) {
+      return res
+        .status(404)
+        .json({ message: "TODO not found", isSuccessMessage: false });
+    }
+
+    if (req.body.userId === todo.userId) {
+      const deleteTodo = await Todo.findById(todo._id);
+      await deleteTodo.deleteOne();
+      res
+        .status(200)
+        .json({ message: "TODO Deleted Succesfully", isSuccessMessage: true });
+    } else {
+      res.status(403).json({
+        message: "Operation not allowed! Cannot delete others TODO",
+        isSuccessMessage: false,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Internal Server Error! Please try again later!",
+      isSuccessMessage: false,
+    });
+  }
+});
+
 module.exports = router;
