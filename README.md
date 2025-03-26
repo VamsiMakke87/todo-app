@@ -132,7 +132,7 @@ By default, the server will run on `http://localhost:8800`.
     }
     ```
 
-- **PUT** `/api/tasks/:id`: Update a todo item.
+- **PUT** `/api/tasks/:taskid`: Update a todo item.
 
   - Request Body:
     ```json
@@ -150,7 +150,7 @@ By default, the server will run on `http://localhost:8800`.
     }
     ```
 
-- **DELETE** `/api/tasks/:id`: Delete a todo item.
+- **DELETE** `/api/tasks/:taskid`: Delete a todo item.
   - Request Body:
     ```json
     {
