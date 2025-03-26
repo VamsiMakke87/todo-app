@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const http = require("http");
 const authRoute = require("./routes/auth");
 const todoRoute = require("./routes/todo");
+const authJWT = require("./middleware/authMiddleware");
 
 const app = express();
 dotenv.config();
@@ -17,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("common"));
 
-app.use("/api/tasks", todoRoute);
+app.use("/api/tasks", authJWT, todoRoute);
 app.use("/api/", authRoute);
 
 const connectDB = (async () => {
