@@ -14,7 +14,7 @@ const Signup = () => {
   const [togglePassword, setTogglePassword] = useState("password");
   const [toggleConfirmPassword, setConfirmTogglePassword] =
     useState("password");
-  const { postReq } = useContext(AppContext);
+  const { postReq, setSuccessMsg, setErrorMsg } = useContext(AppContext);
   const navigate = useNavigate();
 
   const validateForm = async () => {
@@ -64,7 +64,7 @@ const Signup = () => {
         });
 
         if (res.ok) {
-          console.log("Succcess");
+          setSuccessMsg("Account Created Succesfully");
           navigate("/login");
         } else {
           const jsonData = await res.json();

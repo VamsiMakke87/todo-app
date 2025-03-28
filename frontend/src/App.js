@@ -4,11 +4,23 @@ import Signup from "./Components/Signup";
 import TaskForm from "./Components/TaskForm";
 import Home from "./Components/Home";
 import AppContext from "./AppContext";
+import { useEffect, useState } from "react";
 
 function App() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  console.log(backendURL);
+  useEffect(() => {
+    if (errorMsg || successMsg) {
+      const timer = setTimeout(() => {
+        setErrorMsg("");
+        setSuccessMsg("");
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [errorMsg, successMsg]);
 
   const postReq = async (url, data) => {
     try {
@@ -29,8 +41,18 @@ function App() {
 
   return (
     <>
-      <AppContext.Provider value={{ postReq }}>
+      <AppContext.Provider value={{ postReq, setSuccessMsg, setErrorMsg }}>
         <div className="bg-slate-200 h-screen">
+          {errorMsg && (
+            <div className="fixed left-0 w-full bg-red-500 text-white text-center py-2 z-40">
+              {errorMsg}
+            </div>
+          )}
+          {successMsg && (
+            <div className="fixed left-0 w-full bg-green-500 text-white text-center py-2 z-40">
+              {successMsg}
+            </div>
+          )}
           <Router>
             <Routes>
               <Route path="/login" element={<Login />} />
