@@ -37,7 +37,6 @@ const Login = () => {
         if (res.ok) {
           setSuccessMsg(jsonData.message);
           localStorage.setItem("token", jsonData.token);
-          localStorage.setItem("userId",jsonData.userId);
           setToken(jsonData.token);
           navigate("/");
         } else {

@@ -11,7 +11,7 @@ function App() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     if (errorMsg || successMsg) {
@@ -23,6 +23,25 @@ function App() {
       return () => clearTimeout(timer);
     }
   }, [errorMsg, successMsg]);
+
+  const getReq = async (url, data) => {
+    try {
+      const res = await fetch(`${backendURL}${url}`, {
+        method: "GET",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      console.log(res);
+
+      return res;
+    } catch (err) {
+      console.log(err);
+      setErrorMsg("Could not process request. Please try again");
+    }
+  };
 
   const postReq = async (url, data) => {
     try {
@@ -37,13 +56,15 @@ function App() {
 
       return res;
     } catch (err) {
-      return { message: "Could not process request. Please try again" };
+      setErrorMsg("Could not process request. Please try again");
     }
   };
 
   return (
     <>
-      <AppContext.Provider value={{ postReq, setSuccessMsg, setErrorMsg, setToken }}>
+      <AppContext.Provider
+        value={{ postReq, getReq, setSuccessMsg, setErrorMsg, setToken }}
+      >
         <div className="bg-slate-200 h-screen">
           <Router>
             {token && <Navbar />}
