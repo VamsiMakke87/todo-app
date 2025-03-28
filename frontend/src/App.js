@@ -6,6 +6,7 @@ import Home from "./Components/Home";
 import AppContext from "./AppContext";
 import { useEffect, useState } from "react";
 import Navbar from "./Components/Navbar";
+import Logout from "./Components/Logout";
 
 function App() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -84,6 +85,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/add" element={<TaskForm />} />
               <Route path="/edit/:id" element={<TaskForm />} />
+              <Route path="/logout" element={<Logout />} />
             </Routes>
           </Router>
         </div>

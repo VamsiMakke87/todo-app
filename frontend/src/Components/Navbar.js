@@ -7,17 +7,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { setToken } = useContext(AppContext);
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    setToken("");
-    navigate("/login");
-  };
 
   return (
     <div className="top-0 sticky fixed w-full h-16 shadow-md p-2 flex items-center bg-white">
       <div className="text-xl font-extrabold">TODO</div>
-      <div className="ml-auto text-xl cursor-pointer" onClick={logout}>
+      <div className="ml-auto text-xl cursor-pointer" onClick={()=>{navigate("/logout")}}>
         <IoLogOutOutline />
       </div>
     </div>
