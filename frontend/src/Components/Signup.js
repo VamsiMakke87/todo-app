@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { typography } from "@mui/system";
@@ -15,6 +15,7 @@ const Signup = () => {
   const [toggleConfirmPassword, setConfirmTogglePassword] =
     useState("password");
   const { postReq } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const validateForm = async () => {
     try {
@@ -64,6 +65,7 @@ const Signup = () => {
 
         if (res.ok) {
           console.log("Succcess");
+          navigate("/login");
         } else {
           const jsonData = await res.json();
           setError(jsonData.message);
