@@ -11,6 +11,7 @@ function App() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [token, setToken] = useState();
 
   useEffect(() => {
     if (errorMsg || successMsg) {
@@ -42,20 +43,20 @@ function App() {
 
   return (
     <>
-      <AppContext.Provider value={{ postReq, setSuccessMsg, setErrorMsg }}>
+      <AppContext.Provider value={{ postReq, setSuccessMsg, setErrorMsg, setToken }}>
         <div className="bg-slate-200 h-screen">
-          {errorMsg && (
-            <div className="fixed left-0 w-full bg-red-500 text-white text-center py-2 z-40">
-              {errorMsg}
-            </div>
-          )}
-          {successMsg && (
-            <div className="fixed left-0 w-full bg-green-500 text-white text-center py-2 z-40">
-              {successMsg}
-            </div>
-          )}
-          {localStorage.getItem("token") && <Navbar />}
           <Router>
+            {token && <Navbar />}
+            {errorMsg && (
+              <div className="fixed left-0 w-full bg-red-500 text-white text-center py-2 z-40">
+                {errorMsg}
+              </div>
+            )}
+            {successMsg && (
+              <div className="fixed left-0 w-full bg-green-500 text-white text-center py-2 z-40">
+                {successMsg}
+              </div>
+            )}
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />

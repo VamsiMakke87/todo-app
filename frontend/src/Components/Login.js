@@ -9,7 +9,7 @@ const Login = () => {
   const passwordRef = useRef();
   const [togglePassword, setTogglePassword] = useState("password");
   const navigate = useNavigate();
-  const { postReq, setSuccessMsg, setErrorMsg } = useContext(AppContext);
+  const { postReq, setSuccessMsg, setErrorMsg, setToken } = useContext(AppContext);
 
     useEffect(()=>{
         const token = localStorage.getItem("token");
@@ -38,8 +38,8 @@ const Login = () => {
           setSuccessMsg(jsonData.message);
           localStorage.setItem("token", jsonData.token);
           localStorage.setItem("userId",jsonData.userId);
-          console.log(jsonData);
-        //   navigate("/login");
+          setToken(jsonData.token);
+          navigate("/");
         } else {
           setErrorMsg(jsonData.message);
         }
