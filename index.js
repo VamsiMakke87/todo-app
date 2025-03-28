@@ -7,7 +7,7 @@ const http = require("http");
 const authRoute = require("./routes/auth");
 const todoRoute = require("./routes/todo");
 const authJWT = require("./middleware/authMiddleware");
-
+const cors = require("cors");
 const app = express();
 dotenv.config();
 
@@ -17,6 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("common"));
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use("/api/tasks", authJWT, todoRoute);
 app.use("/api/", authRoute);
