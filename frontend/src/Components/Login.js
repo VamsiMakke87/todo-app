@@ -43,6 +43,9 @@ const Login = () => {
               </div>
             </div>
           </div>
+          <div className="w-full bg-black text-white p-2 rounded-lg hover:bg-white hover:text-black border border-black cursor-pointer">
+            Login
+          </div>
           <div>
             New User?{" "}
             <Link className="text-blue-600 cursor-pointer" to="/signup">
