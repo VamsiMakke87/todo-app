@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 router.get("/", async (req, res) => {
   try {
-    const user = await User.findById(req.body.userId);
+    const user = await User.findById(req.user.id);
     if (!user) {
       return res
         .status(404)
@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const user = await User.findById(req.body.userId);
+    const user = await User.findById(req.user.id);
 
     if (!user) {
       return res

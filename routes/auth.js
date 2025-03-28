@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res
         .status(404)
-        .json({ message: "User not found", "isSuccessMessage": false });
+        .json({ message: "User not found", isSuccessMessage: false });
     }
     const vaildPassword = await bcrypt.compare(
       req.body.password,
@@ -63,14 +63,11 @@ router.post("/login", async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
-      res
-        .status(200)
-        .json({
-          token,
-          "userId": user._id,
-          message: "Login Success",
-          isSuccessMessage: true,
-        });
+      res.status(200).json({
+        token,
+        message: "Login Success",
+        isSuccessMessage: true,
+      });
     } else {
       res
         .status(400)
