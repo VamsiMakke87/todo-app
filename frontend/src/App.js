@@ -5,6 +5,7 @@ import TaskForm from "./Components/TaskForm";
 import Home from "./Components/Home";
 import AppContext from "./AppContext";
 import { useEffect, useState } from "react";
+import Navbar from "./Components/Navbar";
 
 function App() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -53,6 +54,7 @@ function App() {
               {successMsg}
             </div>
           )}
+          {localStorage.getItem("token") && <Navbar />}
           <Router>
             <Routes>
               <Route path="/login" element={<Login />} />
