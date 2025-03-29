@@ -24,7 +24,7 @@ const TaskForm = () => {
       const title = titleRef.current.value;
       const description = descriptionRef.current.value;
 
-      if (title.length < 3) {
+      if (title.length < 3 || title.length > 20) {
         setErrorMsg("Title must be of length between 3 and 20");
       } else if (description.length > 200) {
         setErrorMsg("Description must be less than 200 characters!");
@@ -36,9 +36,9 @@ const TaskForm = () => {
         let res;
         if (!todo.title) res = await postReq("/api/tasks", data);
         else res = await putReq(`/api/tasks/${todo._id}`, data);
-        setTodo({});
         const jsonData = await res.json();
         if (res.ok) {
+          setTodo({});
           setSuccessMsg(jsonData.message);
           navigate("/");
         } else {
@@ -67,7 +67,7 @@ const TaskForm = () => {
                 onChange={() => {
                   setTodo({
                     ...todo,
-                    description: descriptionRef.current.value,
+                    title: titleRef.current.value,
                   });
                 }}
               />
