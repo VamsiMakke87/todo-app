@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <div className="top-0 sticky fixed w-full h-16 shadow-md p-2 flex items-center bg-white">
-      <div className="text-xl font-extrabold">TODO</div>
+      <div onClick={()=>{navigate("/")}} className="text-xl font-extrabold cursor-pointer">TODO</div>
       <div className="ml-auto text-xl cursor-pointer" onClick={()=>{navigate("/logout")}}>
         <IoLogOutOutline />
       </div>

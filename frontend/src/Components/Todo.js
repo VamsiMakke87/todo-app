@@ -3,9 +3,14 @@ import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 import AppContext from "../AppContext";
 
 const Todo = (props) => {
-  const { deleteReq, setErrorMsg, setSuccessMsg } = useContext(AppContext);
+  const { deleteReq, setErrorMsg, setSuccessMsg, setTodo } = useContext(AppContext);
 
   const [deleteClicked, setDeleteClicked] = useState(false);
+
+  const editTodo = async () => {
+    setTodo(props.todo);
+    props.editTodo();
+  };
 
   const deleteTodo = async () => {
     try {
@@ -35,7 +40,7 @@ const Todo = (props) => {
               {props.todo.title}
             </div>
             <div className="ml-auto flex space-x-2">
-              <div className="cursor-pointer text-2xl">
+              <div onClick={editTodo} className="cursor-pointer text-2xl">
                 <MdOutlineModeEdit />
               </div>
               <div

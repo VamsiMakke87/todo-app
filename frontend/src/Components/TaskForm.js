@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../AppContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const TaskForm = () => {
   const titleRef = useRef();
   const descriptionRef = useRef();
-  const [descriptionLength, setDescriptionLength] = useState(0);
-  const { setErrorMsg, postReq, setSuccessMsg } = useContext(AppContext);
+  const { setErrorMsg, postReq, putReq, setSuccessMsg, todo, setTodo } =
+    useContext(AppContext);
   const navigate = useNavigate();
+  const [descriptionLength, setDescriptionLength] = useState(
+    todo.description?.length || 0
+  );
 
   useEffect(() => {
+    console.log(todo._id);
     if (!localStorage.getItem("token")) {
       navigate("/login");
     }
@@ -25,10 +29,14 @@ const TaskForm = () => {
       } else if (description.length > 200) {
         setErrorMsg("Description must be less than 200 characters!");
       } else {
-        const res = await postReq("/api/tasks", {
+        const data = {
           title: title,
           description: description,
-        });
+        };
+        let res;
+        if (!todo.title) res = await postReq("/api/tasks", data);
+        else res = await putReq(`/api/tasks/${todo._id}`, data);
+        setTodo({});
         const jsonData = await res.json();
         if (res.ok) {
           setSuccessMsg(jsonData.message);
@@ -43,7 +51,7 @@ const TaskForm = () => {
   };
 
   return (
-    <div className="justify-center items-center h-screen w-screen flex text-center w-6/12">
+    <div className="justify-center items-center h-full w-full flex text-center w-6/12">
       <div className="bg-white md:w-5/12 sm:w-8/12 w-10/12   p-6 px-10 rounded-lg shadow-lg">
         <div className="space-y-2">
           <div className="space-y-1">
@@ -52,9 +60,16 @@ const TaskForm = () => {
             </div>
             <div className={`border  border-black p-1 py-2 rounded-sm`}>
               <input
+                value={todo.title}
                 type="text"
                 className="w-full outline-none"
                 ref={titleRef}
+                onChange={() => {
+                  setTodo({
+                    ...todo,
+                    description: descriptionRef.current.value,
+                  });
+                }}
               />
             </div>
           </div>
@@ -62,10 +77,15 @@ const TaskForm = () => {
             <div className=" text-left font-bold">Description:</div>
             <div className="border  border-black p-1 py-2 rounded-sm">
               <textarea
+                value={todo.description}
                 type="text"
                 className="w-full outline-none"
                 ref={descriptionRef}
                 onChange={() => {
+                  setTodo({
+                    ...todo,
+                    description: descriptionRef.current.value,
+                  });
                   setDescriptionLength(descriptionRef.current.value.length);
                 }}
               />
@@ -79,7 +99,7 @@ const TaskForm = () => {
             onClick={validateForm}
             className="w-full bg-black text-white p-2 rounded-lg hover:bg-white hover:text-black border border-black cursor-pointer"
           >
-            Add TODO
+            {todo.title ? <span>Edit</span> : <span>Add</span>} TODO
           </div>
         </div>
       </div>

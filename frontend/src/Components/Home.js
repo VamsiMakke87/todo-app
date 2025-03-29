@@ -6,7 +6,7 @@ import Todo from "./Todo";
 const Home = () => {
   const navigate = useNavigate();
 
-  const { getReq, setToken, setErrorMsg } = useContext(AppContext);
+  const { getReq, setToken, setErrorMsg, setTodo } = useContext(AppContext);
 
   const [todos, setTodos] = useState([]);
 
@@ -14,6 +14,7 @@ const Home = () => {
     try {
       if (!localStorage.getItem("token")) navigate("/login");
       (async () => {
+        setTodo({});
         const res = await getReq(`/api/tasks`);
 
         const jsonData = await res.json();
@@ -31,6 +32,10 @@ const Home = () => {
     }
   }, []);
 
+  const editTodo = () => {
+    navigate("/edit");
+  };
+
   return (
     <div className="mt-2">
       <div className="justify-items-center cursor-pointer">
@@ -47,7 +52,12 @@ const Home = () => {
       </div>
       <div className="mt-4 justify-items-center space-y-2">
         {todos.map((todo) => (
-          <Todo key={todo._id} todo={todo} setTodos={setTodos} />
+          <Todo
+            key={todo._id}
+            todo={todo}
+            setTodos={setTodos}
+            editTodo={editTodo}
+          />
         ))}
       </div>
     </div>
