@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 
-const TaskForm = () => {
+const TaskForm = (props) => {
   const titleRef = useRef();
   const descriptionRef = useRef();
   const { setErrorMsg, postReq, putReq, setSuccessMsg, todo, setTodo } =
@@ -34,7 +34,7 @@ const TaskForm = () => {
           description: description,
         };
         let res;
-        if (!todo.title) res = await postReq("/api/tasks", data);
+        if (props.buttonText==='Add') res = await postReq("/api/tasks", data);
         else res = await putReq(`/api/tasks/${todo._id}`, data);
         const jsonData = await res.json();
         if (res.ok) {
@@ -99,7 +99,7 @@ const TaskForm = () => {
             onClick={validateForm}
             className="w-full bg-black text-white p-2 rounded-lg hover:bg-white hover:text-black border border-black cursor-pointer"
           >
-            {todo.title ? <span>Edit</span> : <span>Add</span>} TODO
+            {props.buttonText} Todo
           </div>
         </div>
       </div>

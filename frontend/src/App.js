@@ -103,7 +103,7 @@ function App() {
       <AppContext.Provider
         value={{ postReq, getReq, putReq,deleteReq,setSuccessMsg, setErrorMsg, setToken, todo, setTodo }}
       >
-        <div className="bg-slate-200 h-screen">
+        <div className="bg-slate-200 min-h-screen h-full">
           <Router>
             {token && <Navbar />}
             {errorMsg && (
@@ -120,8 +120,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/" element={<Home />} />
-              <Route path="/add" element={<TaskForm />} />
-              <Route path="/edit" element={<TaskForm />} />
+              <Route path="/add" element={<TaskForm buttonText={"Add"}/>} />
+              <Route path="/edit" element={<TaskForm buttonText={"Edit"} />} />
               <Route path="/logout" element={<Logout />} />
             </Routes>
           </Router>
