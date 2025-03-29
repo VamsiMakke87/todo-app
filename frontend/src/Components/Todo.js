@@ -1,4 +1,5 @@
 import React from "react";
+import { MdOutlineDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
 const Todo = (props) => {
   return (
@@ -10,8 +11,12 @@ const Todo = (props) => {
         </div>
       </div>
       <div className="ml-auto flex space-x-2">
-        <div className="cursor-pointer">Edit</div>
-        <div className="cursor-pointer hover:text-red-600">Delete</div>
+        <div className="cursor-pointer text-2xl">
+          <MdOutlineModeEdit />
+        </div>
+        <div className="cursor-pointer text-2xl hover:text-red-600">
+          <MdOutlineDeleteOutline />
+        </div>
       </div>
     </div>
   );
