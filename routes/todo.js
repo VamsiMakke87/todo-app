@@ -25,6 +25,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    console.log(req.user.id);
     const user = await User.findById(req.user.id);
 
     if (!user) {
@@ -34,7 +35,7 @@ router.post("/", async (req, res) => {
     }
 
     const todoData = {
-      userId: req.body.userId,
+      userId: req.user.id,
       title: req.body.title,
       description: req.body.description,
     };
