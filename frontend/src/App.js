@@ -61,10 +61,28 @@ function App() {
     }
   };
 
+
+  const deleteReq = async (url, data) => {
+    try {
+      const res = await fetch(`${backendURL}${url}`, {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      return res;
+    } catch (err) {
+      setErrorMsg("Could not process request. Please try again");
+    }
+  };
+
   return (
     <>
       <AppContext.Provider
-        value={{ postReq, getReq, setSuccessMsg, setErrorMsg, setToken }}
+        value={{ postReq, getReq, deleteReq,setSuccessMsg, setErrorMsg, setToken }}
       >
         <div className="bg-slate-200 h-screen">
           <Router>

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import AppContext from "../AppContext";
 import Todo from "./Todo";
 
-
 const Home = () => {
   const navigate = useNavigate();
 
@@ -12,20 +11,24 @@ const Home = () => {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) navigate("/login");
-    (async () => {
-      const res = await getReq(`/api/tasks`);
+    try {
+      if (!localStorage.getItem("token")) navigate("/login");
+      (async () => {
+        const res = await getReq(`/api/tasks`);
 
-      const jsonData = await res.json();
-      if (res.ok) {
-        setTodos(jsonData);
-        console.log(jsonData);
-      } else {
-        setErrorMsg(jsonData.message);
-        setToken("");
-        navigate("/logout");
-      }
-    })();
+        const jsonData = await res.json();
+        if (res.ok) {
+          setTodos(jsonData);
+          console.log(jsonData);
+        } else {
+          setErrorMsg(jsonData.message);
+          setToken("");
+          navigate("/logout");
+        }
+      })();
+    } catch (err) {
+      setErrorMsg("Unknown error occured! Please try again!");
+    }
   }, []);
 
   return (
@@ -44,7 +47,7 @@ const Home = () => {
       </div>
       <div className="mt-4 justify-items-center space-y-2">
         {todos.map((todo) => (
-          <Todo key={todo._id} todo={todo} />
+          <Todo key={todo._id} todo={todo} setTodos={setTodos} />
         ))}
       </div>
     </div>
