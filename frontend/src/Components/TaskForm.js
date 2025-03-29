@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../AppContext";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,12 @@ const TaskForm = () => {
   const [descriptionLength, setDescriptionLength] = useState(0);
   const { setErrorMsg, postReq, setSuccessMsg } = useContext(AppContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
 
   const validateForm = async () => {
     try {
