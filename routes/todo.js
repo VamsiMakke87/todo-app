@@ -54,6 +54,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
+    console.log(req.params.id);
     const todo = await Todo.findById(req.params.id);
     if (!todo) {
       return res
@@ -61,12 +62,10 @@ router.put("/:id", async (req, res) => {
         .json({ message: "TODO not found", isSuccessMessage: false });
     }
 
-    if (req.body.userId === todo.userId) {
+    if (req.user.id === todo.userId) {
       const updatedTODO = await Todo.findByIdAndUpdate(req.params.id, {
         $set: req.body,
       });
-
-      console.log(updatedTODO);
 
       res
         .status(200)
