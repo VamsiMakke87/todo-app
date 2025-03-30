@@ -8,7 +8,7 @@ const Todo = (props) => {
 
   const [deleteClicked, setDeleteClicked] = useState(false);
   const [todoStatus, setTodoStatus] = useState(
-    props.todo.isCompleted ? "option2" : "option1"
+    props.todo.isCompleted ? "Completed" : "In Progress"
   );
 
   const editTodo = async () => {
@@ -21,12 +21,13 @@ const Todo = (props) => {
       setTodoStatus(e.target.value);
 
       const res = await putReq(`/api/tasks/${props.todo._id}`, {
-        isCompleted: e.target.value === "option2",
+        isCompleted: e.target.value === "Completed",
       });
       const jsonData = await res.json();
 
       if (res.ok) {
         setSuccessMsg(jsonData.message);
+        props.updateTodoStatus(props.todo._id, e.target.value === "Completed");
       } else {
         setErrorMsg(jsonData.message);
       }
@@ -69,8 +70,8 @@ const Todo = (props) => {
                   onChange={handleTodoStatusChange}
                   className="p-1 outline-none"
                 >
-                  <option value="option1">In Progress</option>
-                  <option value="option2">Completed</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
                 </select>
               </div>
               <div onClick={editTodo} className="cursor-pointer text-2xl">

@@ -9,6 +9,7 @@ const Home = () => {
   const { getReq, setToken, setErrorMsg, setTodo } = useContext(AppContext);
 
   const [todos, setTodos] = useState([]);
+  const [todoDisplay, setTodoDisplay] = useState("All");
 
   useEffect(() => {
     try {
@@ -40,6 +41,17 @@ const Home = () => {
     navigate("/edit");
   };
 
+  const updateTodoStatus = (id, status) => {
+    const updatedTodos = todos.map((todo) =>
+      todo._id === id ? { ...todo, isCompleted: status } : todo
+    );
+    setTodos(updatedTodos);
+  };
+
+  const todoDisplayChangehandler = (e) => {
+    setTodoDisplay(e.target.value);
+  };
+
   return (
     <div className="mt-2">
       <div className="justify-items-center cursor-pointer">
@@ -53,23 +65,35 @@ const Home = () => {
             +Create a TODO
           </div>
         </div>
-        <div className="mt-2 ">
-          <select className="p-2 rounded-md bg-black text-white  hover:text-white hover:bg-black">
-            <option className=" hover:text-white hover:bg-black">All</option>
-            <option>Completed</option>
-            <option>In Progress</option>
+        <div className="mt-2">
+          <select
+            value={todoDisplay}
+            onChange={todoDisplayChangehandler}
+            className="p-2 rounded-md bg-black text-white  hover:text-white hover:bg-black"
+          >
+            <option value="All">All</option>
+            <option value="Completed">Completed</option>
+            <option value="In Progress">In Progress</option>
           </select>
         </div>
       </div>
       <div className="mt-4 justify-items-center space-y-2">
-        {todos.map((todo) => (
-          <Todo
-            key={todo._id}
-            todo={todo}
-            setTodos={setTodos}
-            editTodo={editTodo}
-          />
-        ))}
+        {todos
+          .filter((todo) => {
+            if (todoDisplay === "All") return true;
+            return todoDisplay === "Completed"
+              ? todo.isCompleted
+              : !todo.isCompleted;
+          })
+          .map((todo) => (
+            <Todo
+              key={todo._id}
+              todo={todo}
+              setTodos={setTodos}
+              editTodo={editTodo}
+              updateTodoStatus={updateTodoStatus}
+            />
+          ))}
       </div>
     </div>
   );
