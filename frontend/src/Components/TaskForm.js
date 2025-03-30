@@ -51,7 +51,7 @@ const TaskForm = (props) => {
   };
 
   return (
-    <div className="justify-center items-center h-full w-full flex text-center w-6/12">
+    <div className="justify-center items-center h-screen flex text-center">
       <div className="bg-white md:w-5/12 sm:w-8/12 w-10/12   p-6 px-10 rounded-lg shadow-lg">
         <div className="space-y-2">
           <div className="space-y-1">

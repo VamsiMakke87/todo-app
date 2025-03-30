@@ -12,7 +12,7 @@ function App() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [todo,setTodo]= useState({});
+  const [todo, setTodo] = useState({});
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -36,7 +36,6 @@ function App() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(res);
 
       return res;
     } catch (err) {
@@ -62,7 +61,6 @@ function App() {
     }
   };
 
-
   const putReq = async (url, data) => {
     try {
       const res = await fetch(`${backendURL}${url}`, {
@@ -79,7 +77,6 @@ function App() {
       setErrorMsg("Could not process request. Please try again");
     }
   };
-
 
   const deleteReq = async (url, data) => {
     try {
@@ -101,7 +98,17 @@ function App() {
   return (
     <>
       <AppContext.Provider
-        value={{ postReq, getReq, putReq,deleteReq,setSuccessMsg, setErrorMsg, setToken, todo, setTodo }}
+        value={{
+          postReq,
+          getReq,
+          putReq,
+          deleteReq,
+          setSuccessMsg,
+          setErrorMsg,
+          setToken,
+          todo,
+          setTodo,
+        }}
       >
         <div className="bg-slate-200 min-h-screen h-full">
           <Router>
@@ -120,7 +127,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/" element={<Home />} />
-              <Route path="/add" element={<TaskForm buttonText={"Add"}/>} />
+              <Route path="/add" element={<TaskForm buttonText={"Add"} />} />
               <Route path="/edit" element={<TaskForm buttonText={"Edit"} />} />
               <Route path="/logout" element={<Logout />} />
             </Routes>
