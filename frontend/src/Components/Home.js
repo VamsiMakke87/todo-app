@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../AppContext";
 import Todo from "./Todo";
@@ -7,35 +7,40 @@ const Home = () => {
   const navigate = useNavigate();
 
   const { getReq, setToken, setErrorMsg, setTodo } = useContext(AppContext);
-
+  const searchTodoRef = useRef();
   const [todos, setTodos] = useState([]);
+  const [allTodos, setAllTodos] = useState([]);
   const [todoDisplay, setTodoDisplay] = useState("All");
 
   useEffect(() => {
     try {
       if (!localStorage.getItem("token")) navigate("/login");
       (async () => {
-        try {
-          setTodo({});
-          const res = await getReq(`/api/tasks`);
-
-          const jsonData = await res.json();
-          if (res.ok) {
-            setTodos(jsonData);
-          } else {
-            setErrorMsg(jsonData.message);
-            setToken("");
-            navigate("/logout");
-          }
-        } catch (err) {
-          setErrorMsg("Could not process request! Please login again!");
-          navigate("/logout");
-        }
+        await loadTodos();
       })();
     } catch (err) {
       setErrorMsg("Unknown error occured! Please try again!");
     }
   }, []);
+
+  const loadTodos = async () => {
+    try {
+      setTodo({});
+      const res = await getReq(`/api/tasks`);
+
+      const jsonData = await res.json();
+      if (res.ok) {
+        setTodos(jsonData);
+        setAllTodos(jsonData);
+      } else {
+        setErrorMsg(jsonData.message);
+        setToken("");
+        navigate("/logout");
+      }
+    } catch (err) {
+      setErrorMsg("Could not process request! Please login again!");
+    }
+  };
 
   const editTodo = () => {
     navigate("/edit");
@@ -52,6 +57,14 @@ const Home = () => {
     setTodoDisplay(e.target.value);
   };
 
+  const searchTodoHandler = async () => {
+    const searchTodo = searchTodoRef.current.value.trim();
+    const matchedTodos = allTodos.filter((todo) =>
+      todo.title.startsWith(searchTodo)
+    );
+    setTodos(matchedTodos);
+  };
+
   return (
     <div className="mt-2">
       <div className="justify-items-center cursor-pointer">
@@ -65,7 +78,7 @@ const Home = () => {
             +Create a TODO
           </div>
         </div>
-        <div className="mt-2">
+        <div className="m-2 flex">
           <select
             value={todoDisplay}
             onChange={todoDisplayChangehandler}
@@ -76,9 +89,18 @@ const Home = () => {
             <option value="In Progress">In Progress</option>
           </select>
         </div>
+        <div>
+          <input
+            placeholder="Search todo"
+            className="bg-transparent p-2 border border-black rounded-md"
+            type="text"
+            ref={searchTodoRef}
+            onChange={searchTodoHandler}
+          />
+        </div>
       </div>
       <div className="mt-4 justify-items-center space-y-2">
-        {todos
+        {  todos
           .filter((todo) => {
             if (todoDisplay === "All") return true;
             return todoDisplay === "Completed"
@@ -95,6 +117,7 @@ const Home = () => {
             />
           ))}
       </div>
+      <div className="text-center" >{todos.length===0 && <span>No todos found</span>}</div>
     </div>
   );
 };
