@@ -21,8 +21,8 @@ A simple and interactive To-Do list web application built with React.js that all
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/VamsiMakke87/todo-app.git
+cd todo-app/frontend
 ```
 
 ### 2. Install Dependencies
