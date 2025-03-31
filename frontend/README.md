@@ -64,6 +64,7 @@ Your app should now be accessible at `http://localhost:3000`.
     - Login.js
     - Signup.js
     - Home.js
+    - ForgotPassword.js
     - Logout.js
   - App.js
   - AppContext.js
@@ -109,6 +110,7 @@ The app uses `react-router-dom` for client-side routing:
 
 - `/login`: Login page.
 - `/signup`: Signup page.
+- `/forgotPassword`: Reset Password page
 - `/`: Home page (lists all tasks).
 - `/add`: Add new task form.
 - `/edit`: Edit an existing task.

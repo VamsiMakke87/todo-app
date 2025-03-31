@@ -94,8 +94,23 @@ By default, the server will run on `http://localhost:8800`.
     ```json
     {
       "token": "JWT token here",
-      "userId": "userId",
       "message": "Login Success",
+      "isSuccessMessage": true
+    }
+    ```
+  
+- **PUT** `/api/forgotPassword`: To reset password.
+  - Request Body:
+    ```json
+    {
+      "email": "string",
+      "password": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "message": "Password Updated Succesfully",
       "isSuccessMessage": true
     }
     ```
