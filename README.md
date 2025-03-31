@@ -35,8 +35,8 @@ This project is a RESTful API for managing Todo items, including user authentica
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/your-username/todo-api.git
-cd todo-api
+git clone https://github.com/VamsiMakke87/todo-app.git
+cd todo-app
 ```
 
 2. Install dependencies:
