@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 router.get("/", (req, res) => {
-  res.send("Hi");
+  res.send("Hii");
 });
 
 router.post("/register", async (req, res) => {
