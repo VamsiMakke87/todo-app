@@ -56,7 +56,7 @@ const ForgotPassword = () => {
         return;
       } else {
         setError("");
-        const res = await putReq("/api/forgotpassword", {
+        const res = await putReq("/api/forgotPassword", {
           email: email,
           password: password,
         });
