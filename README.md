@@ -7,7 +7,7 @@ This project is a RESTful API for managing Todo items, including user authentica
 - **User Registration**: Allows users to create an account with a username, email, and password.
 - **User Login**: Authenticated users can log in using their credentials and receive a JWT token for further requests.
 - **Todo Management**: Authenticated users can create, update, view, and delete their todo items.
-- **JWT Authentication**: Protects routes by verifying JWT tokens in the `Authorization` header for secure access.
+- **JWT Authentication**: Protects routes by verifying JWT tokens in the `Authorization` header for secure access with a session duration of 1hour.
 - **CRUD Operations**:
   - **Create**: Add new todo items.
   - **Read**: Retrieve a list of todos for the authenticated user.
