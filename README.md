@@ -1,6 +1,6 @@
 # Todo List API
 
-This project is a RESTful API for managing Todo items, including user authentication and CRUD operations, built using **Node.js**, **Express.js**, **MongoDB**, and **JWT (JSON Web Tokens)**.
+This project is a RESTful API for managing Todo items, including user authentication and CRUD operations, built using **Node.js**, **Express.js**, **MongoDB**, **React.js**, and **JWT (JSON Web Tokens)**.
 
 ## Features
 
