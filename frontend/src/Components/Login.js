@@ -9,14 +9,15 @@ const Login = () => {
   const passwordRef = useRef();
   const [togglePassword, setTogglePassword] = useState("password");
   const navigate = useNavigate();
-  const { postReq, setSuccessMsg, setErrorMsg, setToken } = useContext(AppContext);
+  const { postReq, setSuccessMsg, setErrorMsg, setToken } =
+    useContext(AppContext);
 
-    useEffect(()=>{
-        const token = localStorage.getItem("token");
-        if(token){
-            navigate("/");
-        }
-    },[]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   const validateForm = async () => {
     try {
@@ -84,6 +85,7 @@ const Login = () => {
               </div>
             </div>
           </div>
+          <div className="text-left text-sm text-blue-900 cursor-pointer" onClick={()=>{navigate('/forgotPassword')}}>Forgot Password?</div>
           <div
             onClick={validateForm}
             className="w-full bg-black text-white p-2 rounded-lg hover:bg-white hover:text-black border border-black cursor-pointer"

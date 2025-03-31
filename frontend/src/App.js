@@ -7,6 +7,7 @@ import AppContext from "./AppContext";
 import { useEffect, useState } from "react";
 import Navbar from "./Components/Navbar";
 import Logout from "./Components/Logout";
+import ForgotPassword from "./Components/ForgotPassword";
 
 function App() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -126,6 +127,7 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
               <Route path="/" element={<Home />} />
               <Route path="/add" element={<TaskForm buttonText={"Add"} />} />
               <Route path="/edit" element={<TaskForm buttonText={"Edit"} />} />
