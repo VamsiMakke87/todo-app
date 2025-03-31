@@ -1,4 +1,3 @@
-
 # Todo List API
 
 This project is a RESTful API for managing Todo items, including user authentication and CRUD operations, built using **Node.js**, **Express.js**, **MongoDB**, and **JWT (JSON Web Tokens)**.
@@ -22,6 +21,14 @@ This project is a RESTful API for managing Todo items, including user authentica
 - **MongoDB**: NoSQL database for storing user and todo data.
 - **JWT (JSON Web Tokens)**: For secure user authentication.
 - **Bcrypt**: For hashing user passwords before storing them in the database.
+
+## Deployment
+
+- **Frontend**: The To-Do List application is deployed on **Netlify** and is available at:  
+  [https://todoapp-vamsi-makke.netlify.app/](https://todoapp-vamsi-makke.netlify.app/)
+
+- **Backend**: The backend API is deployed on **Render** (Free Tier).  
+  Since the backend is hosted on the free-tier plan, please note that the response time may vary and may take some time due to resource limitations.
 
 ## Installation
 
@@ -48,7 +55,7 @@ JWT_SECRET=your-jwt-secret-here
 4. Start the server:
 
 ```bash
-npm start
+yarn start
 ```
 
 By default, the server will run on `http://localhost:8800`.
@@ -138,8 +145,7 @@ By default, the server will run on `http://localhost:8800`.
     ```json
     {
       "userId": <user-id>,
-      "title": "Updated title" # add fields that needs to be updated
-
+      "title": "Updated title" # add fields that need to be updated
     }
     ```
   - Response:
@@ -150,8 +156,8 @@ By default, the server will run on `http://localhost:8800`.
     }
     ```
 
-- **DELETE** `/api/tasks/:taskls
-id`: Delete a todo item.
+- **DELETE** `/api/tasks/:taskid`: Delete a todo item.
+
   - Request Body:
     ```json
     {
