@@ -187,6 +187,7 @@ By default, the server will run on `http://localhost:8800`.
 ## Folder Structure
 
 ```
+├── frontend/          # Check the frontend folder for details on the frontend structure and setup.
 ├── models/
 │   ├── todo.js        # Todo model
 │   └── user.js        # User model
