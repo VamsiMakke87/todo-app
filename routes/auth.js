@@ -81,4 +81,35 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
+router.put("/forgotPassword", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found!", isSuccessMessage: false });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    user.password = hashedPassword;
+    await user.save();
+    res
+      .status(200)
+      .json({
+        message: "Password Updated Succesfully",
+        isSuccessMessage: true,
+        user,
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Internal Server Error! Please try again later!",
+      isSuccessMessage: false,
+    });
+  }
+});
+
 module.exports = router;
