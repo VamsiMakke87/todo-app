@@ -13,8 +13,13 @@ const Home = () => {
   const [todoDisplay, setTodoDisplay] = useState("All");
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
+
+  useEffect(() => {
     try {
-      if (!localStorage.getItem("token")) navigate("/login");
       (async () => {
         await loadTodos();
       })();

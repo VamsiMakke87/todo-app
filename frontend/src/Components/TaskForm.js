@@ -13,7 +13,6 @@ const TaskForm = (props) => {
   );
 
   useEffect(() => {
-    console.log(todo._id);
     if (!localStorage.getItem("token")) {
       navigate("/login");
     }
