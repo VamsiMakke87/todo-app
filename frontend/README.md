@@ -1,70 +1,126 @@
-# Getting Started with Create React App
+# To-Do List App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple and interactive To-Do list web application built with React.js that allows users to create, edit, delete, and update tasks. The app includes authentication with login and signup, and it communicates with a backend API to store and retrieve tasks.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Authentication**: Users can sign up, log in, and log out.
+- **Task Management**: Users can add, edit, delete, and update task status (In Progress/Completed).
+- **User-friendly UI**: The app provides a clean and intuitive UI with a responsive layout.
+- **API Integration**: The app makes HTTP requests to a backend server using `fetch` for task management.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React.js, React Router
+- **Backend**: API calls to a backend server (you can replace it with your backend URL)
+- **State Management**: React Context API
+- **UI**: Tailwind CSS for styling
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Setup
 
-### `npm test`
+### 1. Clone the Repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
 
-### `npm run build`
+### 2. Install Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ensure you have `Node.js` and `npm` installed. Run the following command to install dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Set Up Environment Variables
 
-### `npm run eject`
+Create a `.env` file at the root of your project and add the following:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+REACT_APP_BACKEND_URL=<your-backend-url>
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Replace `<your-backend-url>` with the actual backend URL for API requests.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. Run the Development Server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Start the React development server:
 
-## Learn More
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Your app should now be accessible at `http://localhost:3000`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Folder Structure
 
-### Code Splitting
+```
+/src
+  /Components
+    - Navbar.js
+    - TaskForm.js
+    - Todo.js
+    - Login.js
+    - Signup.js
+    - Home.js
+    - Logout.js
+  - App.js
+  - AppContext.js
+  - index.js
+  - index.css
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **`Navbar.js`**: Displays the navigation bar.
+- **`TaskForm.js`**: Form for creating and editing tasks.
+- **`Todo.js`**: Displays individual tasks with the ability to edit or delete.
+- **`Login.js`**: Login page for user authentication.
+- **`Signup.js`**: Signup page for user registration.
+- **`Home.js`**: Main page displaying all tasks.
+- **`Logout.js`**: Handles user logout.
 
-### Analyzing the Bundle Size
+## API Calls
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The application makes the following API requests to the backend server:
 
-### Making a Progressive Web App
+- **POST** `/api/tasks`: Create a new task.
+- **GET** `/api/tasks`: Retrieve all tasks.
+- **PUT** `/api/tasks/:id`: Update an existing task (edit or mark as completed).
+- **DELETE** `/api/tasks/:id`: Delete a specific task.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## App Context
 
-### Advanced Configuration
+The app uses React's Context API (`AppContext.js`) to manage global state and make API requests:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **State**: `successMsg`, `errorMsg`, `todo`, `token`
+- **Functions**:
+  - `getReq`: Makes a GET request to the backend.
+  - `postReq`: Makes a POST request to the backend.
+  - `putReq`: Makes a PUT request to the backend.
+  - `deleteReq`: Makes a DELETE request to the backend.
+  - `setSuccessMsg`: Updates the success message.
+  - `setErrorMsg`: Updates the error message.
+  - `setToken`: Sets the user token for authentication.
+  - `setTodo`: Sets the current task being edited.
 
-### Deployment
+## Routing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The app uses `react-router-dom` for client-side routing:
 
-### `npm run build` fails to minify
+- `/login`: Login page.
+- `/signup`: Signup page.
+- `/`: Home page (lists all tasks).
+- `/add`: Add new task form.
+- `/edit`: Edit an existing task.
+- `/logout`: Logout the user.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## UI Feedback
+
+- **Success**: A green success message appears at the top of the screen when a task is added, updated, or deleted successfully.
+- **Error**: A red error message appears when an issue occurs during API calls or form validation.
+
+## Notes
+
+- Ensure that the backend server is properly set up and the API endpoints are working before running the app.
+- The app uses localStorage to store the authentication token.
+

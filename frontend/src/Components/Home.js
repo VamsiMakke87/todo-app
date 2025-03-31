@@ -67,12 +67,12 @@ const Home = () => {
 
   return (
     <div className="mt-2">
-      <div className="justify-items-center cursor-pointer">
+      <div className="justify-items-center">
         <div
           onClick={() => {
             navigate("/add");
           }}
-          className="border border-black border-dashed rounded-lg flex items-center h-16 w-10/12"
+          className="border cursor-pointer border-black border-dashed rounded-lg flex items-center h-16 w-10/12"
         >
           <div className=" w-full text-center text-lg font-semibold">
             +Create a TODO
@@ -100,7 +100,7 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-4 justify-items-center space-y-2">
-        {  todos
+        {todos
           .filter((todo) => {
             if (todoDisplay === "All") return true;
             return todoDisplay === "Completed"
@@ -117,7 +117,9 @@ const Home = () => {
             />
           ))}
       </div>
-      <div className="text-center" >{todos.length===0 && <span>No todos found</span>}</div>
+      <div className="text-center">
+        {todos.length === 0 && <span>No todos found</span>}
+      </div>
     </div>
   );
 };
