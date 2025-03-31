@@ -101,7 +101,6 @@ router.put("/forgotPassword", async (req, res) => {
       .json({
         message: "Password Updated Succesfully",
         isSuccessMessage: true,
-        user,
       });
   } catch (err) {
     console.log(err);
