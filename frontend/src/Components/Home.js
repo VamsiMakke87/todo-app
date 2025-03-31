@@ -13,16 +13,14 @@ const Home = () => {
   const [todoDisplay, setTodoDisplay] = useState("All");
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      navigate("/login");
-    }
-  }, []);
-
-  useEffect(() => {
     try {
-      (async () => {
-        await loadTodos();
-      })();
+      if (!localStorage.getItem("token")) {
+        navigate("/login");
+      } else {
+        (async () => {
+          await loadTodos();
+        })();
+      }
     } catch (err) {
       setErrorMsg("Unknown error occured! Please try again!");
     }
