@@ -77,6 +77,7 @@ Your app should now be accessible at `http://localhost:3000`.
 - **`Todo.js`**: Displays individual tasks with the ability to edit or delete.
 - **`Login.js`**: Login page for user authentication.
 - **`Signup.js`**: Signup page for user registration.
+- **`ForgotPassword.js`**: To reset password.
 - **`Home.js`**: Main page displaying all tasks.
 - **`Logout.js`**: Handles user logout.
 
